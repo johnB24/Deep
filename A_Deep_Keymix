@@ -1,0 +1,128 @@
+set cut_paste_input [stack 0]
+version 11.3 v4
+push $cut_paste_input
+push 0
+Group {
+ inputs 2
+ name A_DeepKeymix4
+ tile_color 0x66ff
+ selected true
+ xpos -681
+ ypos 1269
+ addUserKnob {20 User}
+ addUserKnob {41 channels T Keymix1.channels}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {41 bbox l "Set BBox to" T Keymix1.bbox}
+ addUserKnob {41 metainput l "Metadata from" -STARTLINE T DeepMerge1.metainput}
+ addUserKnob {41 drop_hidden l "Drop hidden samples" -STARTLINE T DeepMerge1.drop_hidden}
+ addUserKnob {26 AINPUT l "A INPUT"}
+ addUserKnob {6 Ainputdeeptoimage l "ON/OFF DeepToImage" +STARTLINE}
+ addUserKnob {26 BINPUT l "B INPUT"}
+ addUserKnob {6 Binputdeeptoimage l "ON/OFF DeepToImage" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {41 mix T Keymix1.mix}
+ addUserKnob {41 invertMask l invert -STARTLINE T Keymix1.invertMask}
+}
+ Input {
+  inputs 0
+  name A
+  xpos 475
+  ypos -594
+  number 1
+ }
+set N242f7cb0 [stack 0]
+ Dot {
+  name Dot3
+  tile_color 0xcccccc00
+  xpos 1071
+  ypos -385
+  hide_input true
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 408
+  ypos -307
+  number 2
+ }
+push $N242f7cb0
+ DeepToImage {
+  volumetric_composition false
+  name DeepToImage5
+  xpos 356
+  ypos -493
+ }
+push $N242f7cb0
+ Switch {
+  inputs 2
+  which {{Ainputdeeptoimage}}
+  name Switch1
+  xpos 475
+  ypos -418
+ }
+ Input {
+  inputs 0
+  name B
+  xpos 678
+  ypos -595
+ }
+set N248a0c70 [stack 0]
+ DeepToImage {
+  name DeepToImage4
+  xpos 763
+  ypos -483
+ }
+push $N248a0c70
+ Switch {
+  inputs 2
+  which {{Binputdeeptoimage}}
+  name Switch2
+  xpos 678
+  ypos -418
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos 678
+  ypos -313
+ }
+ Dot {
+  name Dot401
+  tile_color 0x4b5ec600
+  xpos 700
+  ypos -215
+ }
+push $N248a0c70
+ Dot {
+  name Dot2
+  tile_color 0xcccccc00
+  xpos 871
+  ypos -514
+  hide_input true
+ }
+ DeepMerge {
+  drop_hidden true
+  name DeepMerge1
+  xpos 849
+  ypos -376
+ }
+ Dot {
+  name Dot1
+  tile_color 0x6000
+  xpos 871
+  ypos -120
+ }
+ DeepRecolor {
+  inputs 2
+  bbox color
+  targetInputAlpha true
+  name DeepRecolor1
+  xpos 678
+  ypos -111
+ }
+ Output {
+  name Output1
+  xpos 678
+  ypos -12
+ }
+end_group
